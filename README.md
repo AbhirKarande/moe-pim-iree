@@ -1,63 +1,51 @@
-# IREE: Intermediate Representation Execution Environment
+---
 
-IREE (**I**ntermediate **R**epresentation **E**xecution **E**nvironment,
-pronounced as "eerie") is an [MLIR](https://mlir.llvm.org/)-based end-to-end
-compiler and runtime that lowers Machine Learning (ML) models to a unified IR
-that scales up to meet the needs of the datacenter and down to satisfy the
-constraints and special considerations of mobile and edge deployments.
+# PIM-IREE
 
-See [our website](https://iree-org.github.io/iree/) for project details, user
-guides, and instructions on building from source.
+This project is a compiler and runtime for executing GLM models on PIM devices. (It is a fork of [IREE](https://github.com/aiha-lab/iree.git)). A model described in MLIR's StableHLO dialect is taken as input and compiled into code that can operate on a PIM device, and it can be executed by connecting with the SDK through the runtime.
 
-[![CI Status](https://github.com/iree-org/iree/actions/workflows/ci.yml/badge.svg?query=branch%3Amain+event%3Apush)](https://github.com/iree-org/iree/actions/workflows/ci.yml?query=branch%3Amain+event%3Apush)
+## Installation Instructions
 
-#### Project Status
+### Download pim-iree
 
-IREE is still in its early phase. We have settled down on the overarching
-infrastructure and are actively improving various software components as well as
-project logistics. It is still quite far from ready for everyday use and is made
-available without any support at the moment. With that said, we welcome any kind
-of feedback on any [communication channels](#communication-channels)!
+```bash
+git clone https://github.com/aiha-lab/pim-iree.git
+cd pim-iree
+git submodule update --init
+```
 
-## Communication Channels
+### Install Jsoncpp
 
-*   [GitHub issues](https://github.com/iree-org/iree/issues): Feature requests,
-    bugs, and other work tracking
-*   [IREE Discord server](https://discord.gg/26P4xW4): Daily development
-    discussions with the core team and collaborators
-*   [iree-discuss email list](https://groups.google.com/forum/#!forum/iree-discuss):
-    Announcements, general and low-priority discussion
+Reference: [Jsoncpp GitHub](https://github.com/open-source-parsers/jsoncpp.git)
 
-#### Related Project Channels
+```bash
+git clone https://github.com/Microsoft/vcpkg.git
+cd vcpkg
+./bootstrap-vcpkg.sh
+./vcpkg integrate install
+./vcpkg install jsoncpp
+```
 
-*   [MLIR topic within LLVM Discourse](https://llvm.discourse.group/c/llvm-project/mlir/31):
-    IREE is enabled by and heavily relies on [MLIR](https://mlir.llvm.org). IREE
-    sometimes is referred to in certain MLIR discussions. Useful if you are also
-    interested in MLIR evolution.
+### CMake Build
 
-## Architecture Overview
+```bash
+cmake -G Ninja -B ../pim-iree-build/ . -DCMAKE_TOOLCHAIN_FILE=[vcpkg root]/scripts/buildsystems/vcpkg.cmake -DCMAKE_PREFIX_PATH="[vcpkg root]/installed/x64-linux"
+cmake --build ../pim-iree-build/
+```
 
-<!-- TODO(scotttodd): switch to <picture> once better supported? https://github.blog/changelog/2022-05-19-specify-theme-context-for-images-in-markdown-beta/ -->
-![IREE Architecture](docs/website/docs/assets/images/iree_architecture_dark.svg#gh-dark-mode-only)
-![IREE Architecture](docs/website/docs/assets/images/iree_architecture.svg#gh-light-mode-only)
+## Usage
 
-See [our website](https://iree-org.github.io/iree/) for more information.
+### Compile
 
-## Presentations and Talks
+```bash
+cd pim-iree/PIM-sdk/
+./compile.sh
+```
 
-*   2021-06-09: IREE Runtime Design Tech Talk ([recording](https://drive.google.com/file/d/1p0DcysaIg8rC7ErKYEgutQkOJGPFCU3s/view) and [slides](https://drive.google.com/file/d/1ikgOdZxnMz1ExqwrAiuTY9exbe3yMWbB/view?usp=sharing))
-*   2020-08-20: IREE CodeGen: MLIR Open Design Meeting Presentation
-    ([recording](https://drive.google.com/file/d/1325zKXnNIXGw3cdWrDWJ1-bp952wvC6W/view?usp=sharing)
-    and
-    [slides](https://docs.google.com/presentation/d/1NetHjKAOYg49KixY5tELqFp6Zr2v8_ujGzWZ_3xvqC8/edit))
-*   2020-03-18: Interactive HAL IR Walkthrough
-    ([recording](https://drive.google.com/file/d/1_sWDgAPDfrGQZdxAapSA90AD1jVfhp-f/view?usp=sharing))
-*   2020-01-31: End-to-end MLIR Workflow in IREE: MLIR Open Design Meeting Presentation
-    ([recording](https://drive.google.com/open?id=1os9FaPodPI59uj7JJI3aXnTzkuttuVkR)
-    and
-    [slides](https://drive.google.com/open?id=1RCQ4ZPQFK9cVgu3IH1e5xbrBcqy7d_cEZ578j84OvYI))
+Input file is a GPT2-125M model described in the StableHLO dialect. The final output of the compiler is a vmfb file, and if you want to check the intermediate result(MLIR), you can modify and use the --compile-to option in compile.sh.
 
-## License
+### Runtime Execution
 
-IREE is licensed under the terms of the Apache 2.0 License with LLVM Exceptions.
-See [LICENSE](LICENSE) for more information.
+```bash
+./exec-pim.sh
+```
