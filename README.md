@@ -47,6 +47,7 @@ Input file is a GPT2-125M model described in the StableHLO dialect. The final ou
 
 ### Runtime Execution
 
+The generated .vmfb file from the compilation is executed to perform PiM simulator execution. Furthermore, it outputs the results of the operations.
 ```bash
 ./exec-pim.sh
 ```
