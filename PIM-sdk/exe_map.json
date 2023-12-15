@@ -1,0 +1,107 @@
+{
+	"0" : 
+	{
+		"layer" : "layernorm1-empty",
+		"partioning" : "copy",
+		"sync" : "none"
+	},
+	"1" : 
+	{
+		"layer" : "layernorm1-empty",
+		"partioning" : "copy",
+		"sync" : "none"
+	},
+	"10" : 
+	{
+		"layer" : "layernorm2-empty",
+		"partioning" : "copy",
+		"sync" : "none"
+	},
+	"11" : 
+	{
+		"layer" : "layernorm2-empty",
+		"partioning" : "copy",
+		"sync" : "none"
+	},
+	"12" : 
+	{
+		"layer" : "layernorm2-empty",
+		"partioning" : "copy",
+		"sync" : "none"
+	},
+	"13" : 
+	{
+		"layer" : "layernorm2",
+		"partioning" : "copy",
+		"sync" : "none"
+	},
+	"14" : 
+	{
+		"layer" : "fc1",
+		"partioning" : "row-wise",
+		"sync" : "none"
+	},
+	"15" : 
+	{
+		"layer" : "fc2+residual",
+		"partioning" : "col-wise",
+		"sync" : "reduce"
+	},
+	"2" : 
+	{
+		"layer" : "layernorm1-empty",
+		"partioning" : "copy",
+		"sync" : "none"
+	},
+	"3" : 
+	{
+		"layer" : "layernorm1",
+		"partioning" : "copy",
+		"sync" : "none"
+	},
+	"4" : 
+	{
+		"layer" : "c_attn",
+		"partioning" : "row-wise",
+		"sync" : "none"
+	},
+	"5" : 
+	{
+		"layer" : "qk",
+		"partioning" : "head-wise",
+		"sync" : "none"
+	},
+	"6" : 
+	{
+		"layer" : "softmax-empty",
+		"partioning" : "head-wise",
+		"sync" : "none"
+	},
+	"7" : 
+	{
+		"layer" : "softmax",
+		"partioning" : "head-wise",
+		"sync" : "none"
+	},
+	"8" : 
+	{
+		"layer" : "sv",
+		"partioning" : "head-wise",
+		"sync" : "none"
+	},
+	"9" : 
+	{
+		"layer" : "c_proj+residual",
+		"partioning" : "col-wise",
+		"sync" : "reduce"
+	},
+	"config" : 
+	{
+		"d_head" : 64,
+		"d_model" : 768,
+		"n_head" : 12,
+		"token" : 1024
+	},
+	"num_device" : "1",
+	"workload" : "decoder"
+}

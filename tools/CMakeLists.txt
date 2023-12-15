@@ -21,6 +21,9 @@
 # Write some important CMake options to a file for convenient use from scripts.
 configure_file(build_config_template.txt.in build_config.txt)
 
+# PiM-SDK modify
+find_package(jsoncpp CONFIG REQUIRED)
+
 iree_add_all_subdirs()
 
 # TODO(scotttodd): Should this be checking IREE_BUILD_COMPILER?
@@ -130,6 +133,29 @@ iree_cc_binary(
     iree::tooling::device_util
     iree::tooling::vm_util
     iree::vm
+)
+
+# include PIM-SDK directories
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../PIM-sdk")
+
+iree_cc_binary(
+  NAME
+    iree-run-pim
+  SRCS
+    "iree-run-pim.cc"
+  DEPS
+    iree::base
+    iree::base::internal::flags
+    iree::base::tracing
+    iree::hal
+    iree::modules::hal::types
+    iree::tooling::comparison
+    iree::tooling::context_util
+    iree::tooling::device_util
+    iree::tooling::vm_util
+    iree::vm
+    "${CMAKE_CURRENT_SOURCE_DIR}/../PIM-sdk/libpim.so.0.0.0"
+    JsonCpp::JsonCpp
 )
 
 iree_cc_binary(
