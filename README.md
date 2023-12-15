@@ -39,7 +39,7 @@ cmake --build ../pim-iree-build/
 ### Compile
 
 ```bash
-cd pim-iree/PIM-sdk/
+cd pim-iree/PIM-sdk/compiler-artifact/
 ./compile.sh
 ```
 

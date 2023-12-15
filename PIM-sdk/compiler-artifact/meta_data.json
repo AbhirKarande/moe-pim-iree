@@ -100,5 +100,5 @@
 			3072
 		]
 	},
-	"n_layer" : "12"
+	"workload" : "decoder"
 }

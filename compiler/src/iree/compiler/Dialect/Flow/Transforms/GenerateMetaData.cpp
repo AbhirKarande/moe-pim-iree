@@ -131,7 +131,7 @@ void GenerateMetaData(FunctionOpInterface funcOp)
         Json::Value root;
         Json::Value input, weight, weight_bm, bias;
         root["workload"] = "decoder";
-        root["n_layer"] = "12";
+        // root["n_layer"] = "12";
         llvm::outs() << "Decoder pattern matched!\n";
         funcOp.walk([&](Operation *op_) {
         // if(isa<linalg::MatmulOp>(op_)) {
