@@ -29,6 +29,7 @@ cd vcpkg
 ### CMake Build
 
 ```bash
+# vcpkg root indicates the directory where you installed vcpkg in the previous step.
 cmake -G Ninja -B ../pim-iree-build/ . -DCMAKE_TOOLCHAIN_FILE=[vcpkg root]/scripts/buildsystems/vcpkg.cmake -DCMAKE_PREFIX_PATH="[vcpkg root]/installed/x64-linux"
 cmake --build ../pim-iree-build/
 ```
