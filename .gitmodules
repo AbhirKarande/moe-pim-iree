@@ -34,7 +34,7 @@
 	url = https://github.com/pytorch/cpuinfo.git
 [submodule "third_party/mlir-hlo"]
 	path = third_party/mlir-hlo
-	url = https://github.com/tensorflow/mhlo-fork.git
+	url = https://github.com/tensorflow/mlir-hlo.git
 [submodule "third_party/libyaml"]
 	path = third_party/libyaml
 	url = https://github.com/yaml/libyaml.git
