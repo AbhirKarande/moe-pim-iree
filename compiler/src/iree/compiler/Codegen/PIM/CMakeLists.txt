@@ -80,6 +80,7 @@ iree_cc_library(
     iree::compiler::Dialect::PIM::IR::PIMDialect
     iree::compiler::Dialect::PIM::Conversion::LinalgToPIM
     JsonCpp::JsonCpp
+    iree::compiler::Codegen::LLVMGPU::LLVMGPU   # add this line
   PUBLIC
 )
 
